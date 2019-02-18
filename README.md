@@ -16,7 +16,8 @@ Known Issues:
   Spectrum:Yellow). More work to be done here.
   
   -Methods for pixel targeting in some cases targets pixels not intended in the hue
-  profile. More research to be done.
+  profile. Methods for targeting White, Black, and null pixels are not implemented. More 
+  research to be done.
   
   -Image displayers Top property on MainWindow.xaml not bound to ComboBoxes Bottom 
   property. Binding this will form a more appropriate layout similar to a constraint-
