@@ -210,8 +210,10 @@ namespace Recolor_Guy
                     float b = Color.FromArgb(pxl).GetBrightness();
                     int h = RecolorPixel.GetHue(pxl);
                     h = h > 345 ? h -= 360 : h;
-                    return (h >= (int)th && 
-                            h <= (int)th + 30 &&
+                    int bth = th;
+                    int tth = (bth + 30) > 360 ? bth -= 330 : bth + 30;
+                    return (h >= bth && 
+                            h <= tth &&
                             b < 0.85 &&
                             b > 0.15);
                 };
