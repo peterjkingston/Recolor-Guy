@@ -116,9 +116,9 @@ namespace Recolor_Guy
             }
 
             int newPxl = alpha << 24;
-            newPxl |= colorPieces[order[2]] << 16;
+            newPxl |= colorPieces[order[0]] << 16;
             newPxl |= colorPieces[order[1]] << 8;
-            newPxl |= colorPieces[order[0]] << 0;
+            newPxl |= colorPieces[order[2]] << 0;
             
             return newPxl;
         }
