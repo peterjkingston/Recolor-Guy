@@ -17,6 +17,8 @@ Known Issues:
   -Pixel targeting updated, but still sometimes grabs pixels of unexpected spectrum.
   More work to be done here.
   
+  -Image length still not calculated correctly for all images. More work to be done here.
+  
   -Expect Out of Memory exceptions to occur when near maximum memory usage, or when using
   very large image files expect an Access Violation exceptions. More work to be done here.
   
