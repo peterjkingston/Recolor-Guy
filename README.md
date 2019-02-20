@@ -17,7 +17,8 @@ Known Issues:
  -Image aspect ratios do not lock. More work to be done here.
 
   -Pixel targeting updated, but still sometimes grabs pixels of unexpected spectrum.
-  More work to be done here.
+   Noticed int RecolorPixel.GetHue(int) is not written in accordance with the reference cited.
+   More work to be done here.
   
   -Image length still not calculated correctly for all images. More work to be done here.
   
