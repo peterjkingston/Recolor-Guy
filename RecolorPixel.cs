@@ -128,14 +128,14 @@ namespace Recolor_Guy
             //Thanks on this part to http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
 
             byte[] rgb = BitConverter.GetBytes(color);
-            float R = rgb[2] / 255;
-            float G = rgb[1] / 255;
-            float B = rgb[0] / 255;
+            double R = rgb[2] / 255;
+            double G = rgb[1] / 255;
+            double B = rgb[0] / 255;
 
-            float max = Numbers.Max(new float[] { R, G, B });
-            float min = Numbers.Min(new float[] { R, G, B });
+            double max = Numbers.Max(new double[] { R, G, B });
+            double min = Numbers.Min(new double[] { R, G, B });
 
-            float lum = (max + min) / 2;
+            double lum = (max + min) / 2;
             double sat = min == max ? 0 :
                          (lum > 0.5) ? (max-min)/(max+min) :
                                        (max-min)/(2.0-max-min);
@@ -143,6 +143,7 @@ namespace Recolor_Guy
             if (max == R) { hue = (G - B) / (max - min); }
             else if (max == G) { hue = 2.0 + (B - R) / (max - min); }
             else { hue = 4.0 + (R - G) / (max - min); }
+            hue = Double.IsNaN(hue) ? 0 : hue;
             hue *= 60;
             hue = hue > 360 ? hue += 360 : hue;
 
