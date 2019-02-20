@@ -8,19 +8,26 @@ namespace Recolor_Guy
 {
     public static class Numbers
     {
-        public static float Max(params float[] numbers)
+        public static double Max(params double[] numbers)
         {
             return numbers.Max();
         }
 
-        public static float Min(params float[] numbers)
+        public static double Min(params double[] numbers)
         {
             return numbers.Min();
         }
 
         public static byte LargestOf(byte[] colorBytes)
         {
-            return colorBytes.Max();
+            byte result = colorBytes.Max();
+
+            /*
+            if (colorBytes[0] > colorBytes[1] && colorBytes[0] > colorBytes[2]) { result = colorBytes[0]; }
+            if (colorBytes[1] > colorBytes[0] && colorBytes[1] > colorBytes[2]) { result = colorBytes[1]; }
+            if (colorBytes[2] > colorBytes[1] && colorBytes[2] > colorBytes[0]) { result = colorBytes[2]; }
+            */
+            return result;
         }
 
         public static byte MiddleOf(byte[] bytes)
@@ -39,6 +46,17 @@ namespace Recolor_Guy
         public static byte SmallestOf(byte[] bytes)
         {
             return bytes.Min();
+            /*
+            byte valR = bytes[2];
+            byte valG = bytes[1];
+            byte valB = bytes[0];
+
+            if (valR <= valG && valR <= valB) { return valR; }
+            if (valG <= valR && valG <= valB) { return valG; }
+            if (valB <= valG && valB <= valR) { return valB; }
+            
+            return 0;
+            */
         }
     }
 }
