@@ -18,7 +18,7 @@
             <ColumnDefinition Width="87*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="77*"/>
+            <RowDefinition Height="77"/>
             <RowDefinition Height="254*"/>
         </Grid.RowDefinitions>
 
@@ -26,23 +26,25 @@
             <Border.Background>
                 <ImageBrush ImageSource="null.png" TileMode="Tile" Viewbox="0,0,20,20" ViewboxUnits="Absolute" Viewport="0,0,0.05,0.05" Stretch="UniformToFill"/>
             </Border.Background>
+
         </Border>
 
         <Border x:Name="Image2Border" Margin="10,10.333,10.16,9.412" Grid.Column="1" Grid.Row="1" BorderBrush="Black" >
             <Border.Background>
                 <ImageBrush ImageSource="null.png" TileMode="Tile" Viewbox="0,0,20,20" ViewboxUnits="Absolute" Viewport="0,0,.05,.05" Stretch="UniformToFill"/>
             </Border.Background>
+
         </Border>
-        
+
         <Button x:Name="OpenButton" Content="Open Image" HorizontalAlignment="Left" VerticalAlignment="Top" Click="OpenButton_Click" Width="111" Height="24" Margin="10,10,0,0"/>
         <Button x:Name="SaveButton" Content="Save As" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SaveButton_Click" Width="115" Margin="128,10,0,0" Height="24"/>
 
         <Button x:Name="ApplyButton" Content="Apply Change" HorizontalAlignment="Right" Height="24" Margin="0,10,12.333,0" VerticalAlignment="Top" Width="115" Click="ApplyButton_Click" Grid.Column="1"/>
 
-        <ComboBox x:Name="ToBox" HorizontalAlignment="Right" Height="26" Margin="0,50,12.333,0" VerticalAlignment="Top" Width="150" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1"/>
-        <ComboBox x:Name="FromBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" SelectionChanged="ComboBox_SelectionChanged" Margin="122.173,51,0,0" Height="27" Grid.RowSpan="2"/>
+        <ComboBox x:Name="ToBox" HorizontalAlignment="Right" Height="26" VerticalAlignment="Top" Width="150" SelectionChanged="ComboBox_SelectionChanged" Margin="0, 50, 12, 0" Grid.Column="1"/>
+        <ComboBox x:Name="FromBox" Height="26" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Margin="0,50,10.4,0" HorizontalAlignment="Right" Width="150"/>
 
-        <Label Content="From Color:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Margin="10,50,0,0" Height="26"/>
+        <Label Content="From Color:" VerticalAlignment="Top" Margin="0,50,165.4,0" Height="26" HorizontalAlignment="Right" Width="107"/>
         <Label Content="To Color:" HorizontalAlignment="Right" Height="26" VerticalAlignment="Top" Width="111" Grid.Column="1">
             <Label.Margin>
                 <Thickness>0,50,126.333,0</Thickness>
