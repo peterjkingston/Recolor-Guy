@@ -22,14 +22,17 @@ namespace Recolor_Guy
 
         const int _PIXEL_CONCURRENCY = 6000;
         private WriteableBitmap _bitmap;
-        private List<Task> tasks;
-        private Memory<int> memCopy;
+        private List<Task> _tasks;
+        private Memory<int> _memCopy;
         private readonly bool _isInitialized;
         private int[] _bufferCopy;
         private readonly Thread _mainThread;
         private long _ImageLength;
-        private IsPixel IsTargeted;
-        private IsHueGroup IsNewHue;
+        private int _Width;
+        private int _Height;
+        private int _BufferSize;
+        private IsPixel _IsTargeted;
+        private IsHueGroup _IsNewHue;
 
         public ImageProcessor() { this._isInitialized = false; WriteSyncCompleted += WrapUp; }
 
@@ -63,46 +66,46 @@ namespace Recolor_Guy
         {
             if (_isInitialized)
             {
-                memCopy = GetImageSpan();
+                _memCopy = GetImageSpan();
 
-                int taskCount = GetTaskCount(memCopy.Length);
+                int taskCount = GetTaskCount(_memCopy.Length);
                 int writableWidth = _bitmap.PixelWidth;
                 int bufferWidth = _bitmap.BackBufferStride/4;
                 WriteSyncCompleted += WrapUp;
 
-                IsTargeted = GetTargetSelector(colorFrom);
-                IsNewHue = GetHueSelector(colorTo);
+                _IsTargeted = GetTargetSelector(colorFrom);
+                _IsNewHue = GetHueSelector(colorTo);
 
                 Task.Run(() =>
                 {
-                    tasks = new List<Task>();
+                    _tasks = new List<Task>();
                     for (int i = 0; i < taskCount; i++)
                     {
                         int startPixel = i * bufferWidth;
-                        if (startPixel <= memCopy.Length)
+                        if (startPixel <= _memCopy.Length)
                         {
                             Task t = new Task((a) =>
                                 {
-                                    if (startPixel + _PIXEL_CONCURRENCY < memCopy.Length)
+                                    if (startPixel + _PIXEL_CONCURRENCY < _memCopy.Length)
                                     {
-                                        ProcessBytes(memCopy.Span.Slice(startPixel, writableWidth), colorFrom, colorTo);
+                                        ProcessBytes(_memCopy.Span.Slice(startPixel, writableWidth), colorFrom, colorTo);
                                     }
                                     else
                                     {
-                                        ProcessBytes(memCopy.Span.Slice(startPixel, memCopy.Length - startPixel), colorFrom, colorTo);
+                                        ProcessBytes(_memCopy.Span.Slice(startPixel, _memCopy.Length - startPixel), colorFrom, colorTo);
                                     }
                                 },
                                 i);
 
-                            tasks.Add(t);
+                            _tasks.Add(t);
                         }
                     }
 
-                    foreach (Task t in tasks)
+                    foreach (Task t in _tasks)
                     {
                         t.Start();
                     }
-                    Task.WaitAll(tasks.ToArray());
+                    Task.WaitAll(_tasks.ToArray());
                     
                     try
                     {
@@ -118,32 +121,37 @@ namespace Recolor_Guy
 
         private Memory<int> GetImageSpan()
         {   
-            _ImageLength = (int)((2 + _bitmap.BackBufferStride) * (_bitmap.PixelHeight));
+            _ImageLength = _bitmap.PixelWidth * _bitmap.PixelHeight;
 
+            _Width = _bitmap.PixelWidth;
+            _Height = _bitmap.PixelHeight;
+
+            _BufferSize = _bitmap.BackBufferStride - (_Width*4);
             //Make a heap copy of the BackBuffer
             unsafe
             {
-                try
-                {
+                //try
+                //{
                     _bitmap.Lock();
 
                     int intPtr = (int)_bitmap.BackBuffer;
 
                     _bufferCopy = new int[_ImageLength];
-                    for (long i = 0; i < _ImageLength; i++)
+                    for (int i = 0; i < _ImageLength; i++)
                     {
-                        _bufferCopy[i] = *((int*)intPtr);
-                        intPtr++;
+                            _bufferCopy[i] = *((int*)intPtr);
+                            intPtr+=4;
+                            if (i % _Width == 0) { intPtr += _BufferSize; }
                     }
-                }
-                catch
-                {
+                //}
+                //catch
+                //{
                     
-                }
-                finally
-                {
+                //}
+                //finally
+                //{
                     _bitmap.Unlock();
-                }
+                //}
             }
 
             return new Memory<int>(_bufferCopy);
@@ -156,7 +164,7 @@ namespace Recolor_Guy
 
         private void WrapUp(object sender, EventArgs e)
         {
-            System.Windows.Int32Rect dirtyRect = new System.Windows.Int32Rect(0, 0, _bitmap.PixelWidth, _bitmap.PixelHeight);
+            System.Windows.Int32Rect dirtyRect = new System.Windows.Int32Rect(0, 0, _Width, _Height);
             try
             {
                 unsafe
@@ -165,8 +173,9 @@ namespace Recolor_Guy
                     int intPtr = (int)_bitmap.BackBuffer;
                     for (int i = 0; i < _ImageLength; i++)
                     {
-                        *((int*)intPtr) = _bufferCopy[i];
-                        intPtr++;
+                        *((int*)intPtr) = _bufferCopy[i] ;
+                        intPtr+=4;
+                        if (i % _Width == 0) { intPtr += _BufferSize; }
                     }
                 }
                 _bitmap.AddDirtyRect(dirtyRect);
@@ -181,7 +190,7 @@ namespace Recolor_Guy
             {
                 //If this hue meets the correct profile, then change it to the requested hue.
                 int pxl = dataSlice[i];
-                if (IsTargeted(pxl,targetHue))
+                if (_IsTargeted(pxl,targetHue))
                 {
                     dataSlice[i] = RecolorPixel.Recolor(pxl, alterTo);
                 }
@@ -210,8 +219,11 @@ namespace Recolor_Guy
                     float b = Color.FromArgb(pxl).GetBrightness();
                     int h = RecolorPixel.GetHue(pxl);
                     h = h > 345 ? h -= 360 : h;
+
+
                     int bth = (int)th;
                     int tth = (bth + 30) > 360 ? bth -= 330 : bth + 30;
+
                     return (h >= bth && 
                             h <= tth &&
                             b < 0.85 &&
