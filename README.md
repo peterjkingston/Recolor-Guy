@@ -11,6 +11,9 @@ Sections omitted:
   -App.xaml & App.cs
   
 Known Issues:
+  -Program assumes BigEndian, and 32bit processing, detection to be added for added portability.
+   More work to be done here.
+
   -Pixel targeting updated, but still sometimes grabs pixels of unexpected spectrum.
   More work to be done here.
   
