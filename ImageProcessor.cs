@@ -130,8 +130,8 @@ namespace Recolor_Guy
             //Make a heap copy of the BackBuffer
             unsafe
             {
-                //try
-                //{
+                try
+                { 
                     _bitmap.Lock();
 
                     int intPtr = (int)_bitmap.BackBuffer;
@@ -143,15 +143,15 @@ namespace Recolor_Guy
                             intPtr+=4;
                             if (i % _Width == 0) { intPtr += _BufferSize; }
                     }
-                //}
-                //catch
-                //{
+                }
+                catch
+                {
                     
-                //}
-                //finally
-                //{
+                }
+                finally
+                {
                     _bitmap.Unlock();
-                //}
+                }
             }
 
             return new Memory<int>(_bufferCopy);
