@@ -21,8 +21,6 @@ Known Issues:
   -Expect Out of Memory exceptions to occur when near maximum memory usage, or when using
   very large image files expect an Access Violation exceptions. More work to be done here.
   
-  -Image buffer size not calculated to work for all images. More work to be done here.
-  
 Future Improvements:
   -Create a more visually appealing user control for selecting to and from spectrums.
   Ideally, this control should have a conical nature, including a cone face, and side
