@@ -18,7 +18,7 @@ Known Issues:
 
   -Pixel targeting updated, but still sometimes grabs pixels of unexpected spectrum.
    Noticed int RecolorPixel.GetHue(int) is not written in accordance with the reference cited.
-   More work to be done here.
+   Also, RBG values are getting truncated due to missing cast. More work to be done here.
   
   -Image length still not calculated correctly for all images. More work to be done here.
   
