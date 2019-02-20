@@ -11,13 +11,8 @@ Sections omitted:
   -App.xaml & App.cs
   
 Known Issues:
-  -Method int RecolorPixel.Recolor(int, Recolor_Guy.Spectrum) does not currently return 
-  the intended color schemes (e.g: Spectrum.Rose returns the intended color scheme for 
-  Spectrum:Yellow). More work to be done here.
-  
-  -Methods for pixel targeting in some cases targets pixels not intended in the hue
-  profile. Methods for targeting White, Black, and null pixels are not implemented. More 
-  research to be done.
+  -Pixel targeting updated, but still sometimes grabs pixels of unexpected spectrum.
+  More work to be done here.
   
   -Image displayers Top property on MainWindow.xaml not bound to ComboBoxes Bottom 
   property. Binding this will form a more appropriate layout similar to a constraint-
