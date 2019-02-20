@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 
 namespace Recolor_Guy
 {
-    public class BackgroundWorks
+    public class BackgroundWorks:Object
     {
         public event EventHandler ImageProcessed;
 
@@ -116,9 +116,9 @@ namespace Recolor_Guy
             /// Paints the image preview over the original image pane.
             /// </summary>
 
-            _Owner.Image1Border.Background = null;
-            _Owner.Image1Border.Background = _Owner.Image2;
-            _Owner.Image1 = _Owner.Image2;
+            ((ImageBrush)_Owner.Image1Border.Background).ImageSource = null;
+            _Owner.Image1Border.Background = _Owner.Image2.Clone();
+            _Owner.Image1 = _Owner.Image2.Clone();
         }
 
         public void OpenImage()
@@ -137,6 +137,9 @@ namespace Recolor_Guy
 
                 _Owner.Image1Border.Background = _Owner.Image1 = iBrush;
                 _Owner.Image2Border.Background = _Owner.Image2 = iBrush.Clone() ;
+
+                _Owner.FromBox.IsEnabled = true;
+                _Owner.ToBox.IsEnabled = true;
 
                 _Owner.IsOpen = true;
             }
