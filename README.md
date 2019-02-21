@@ -18,9 +18,6 @@ Known Issues:
 
   -Program assumes BigEndian, and 32bit processing, detection to be added for added portability.
    More work to be done here.
-
- -Image aspect ratios fixed, however right image's height property is slightly less than the left.
-  More work to be done here.
   
   -Image length still not calculated correctly for all images. More work to be done here.
   
