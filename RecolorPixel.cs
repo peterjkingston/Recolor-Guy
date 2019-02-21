@@ -128,9 +128,9 @@ namespace Recolor_Guy
             //Thanks on this part to http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
 
             byte[] rgb = BitConverter.GetBytes(color);
-            double R = rgb[2] / 255;
-            double G = rgb[1] / 255;
-            double B = rgb[0] / 255;
+            double R = (double)rgb[2] / 255;
+            double G = (double)rgb[1] / 255;
+            double B = (double)rgb[0] / 255;
 
             double max = Numbers.Max(new double[] { R, G, B });
             double min = Numbers.Min(new double[] { R, G, B });
