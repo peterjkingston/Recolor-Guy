@@ -4,8 +4,9 @@ to a relative equivilant hue.
 
 Requirements:
 
-C# v7.2 or higher
-NuGet package System.Memory
+  -C# v7.2 or higher
+
+  -NuGet package System.Memory
 
 Sections omitted:
 
