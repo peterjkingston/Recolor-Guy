@@ -6,11 +6,13 @@ Requires C# v7.2 or higher
 Requires NuGet package System.Memory
 
 Sections omitted:
+
   -Properties & all subfiles
   -References
   -App.xaml & App.cs
   
 Known Issues:
+
   -Program assumes BigEndian, and 32bit processing, detection to be added for added portability.
    More work to be done here.
 
