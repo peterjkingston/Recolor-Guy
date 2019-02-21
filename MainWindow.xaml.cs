@@ -49,7 +49,11 @@ namespace Recolor_Guy
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             if (this != null)
+            {
                 _BackgroundWorks.OpenImage();
+                Image1.Stretch = Stretch.Uniform;
+                Image2.Stretch = Stretch.Uniform;
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
