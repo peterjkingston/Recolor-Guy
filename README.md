@@ -29,3 +29,6 @@ Future Improvements:
   -Create a more visually appealing user control for selecting to and from spectrums.
   Ideally, this control should have a conical nature, including a cone face, and side
   view.
+  
+  -Create a selection tool to limit the x,y coordinates of a pixel change, rather than the
+   whole image.
