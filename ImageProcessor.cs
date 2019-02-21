@@ -226,8 +226,8 @@ namespace Recolor_Guy
 
                     return (h >= bth && 
                             h <= tth &&
-                            b < 0.85 &&
-                            b > 0.15);
+                            b < 0.95 &&
+                            b > 0.05);
                 };
             }
             else
